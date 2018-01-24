@@ -16,6 +16,21 @@ namespace PrimusJRPG.PrimusScript.Base
             id = "ConditionBlock";
         }
 
+        public void SetCondition(Condition cndtn)
+        {
+            condition = cndtn;
+        }
+
+        public void SetThen(Command cmd)
+        {
+            _then = cmd;
+        }
+
+        public void SetElse(Command cmd)
+        {
+            _else = cmd;
+        }
+
         public override bool Execute(EventManager caller)
         {
             Step(caller);

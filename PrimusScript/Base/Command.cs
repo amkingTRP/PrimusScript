@@ -20,6 +20,11 @@ namespace PrimusJRPG.PrimusScript.Base
             return true;
         }
 
+        public void SetNext(Command nxt)
+        {
+            next = nxt;
+        }
+
         protected Command next;
         public String id;
     }
