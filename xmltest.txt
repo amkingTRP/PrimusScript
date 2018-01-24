@@ -1,0 +1,36 @@
+<primusscript name = "testevent">
+<alias word="test" value="1"/>
+<event priority="12">
+  <trigger>
+    <and>
+      <greaterval A="test" val="12"/>
+      <lessval A="test" val = "34" />
+    </and>
+  </trigger>
+  <commands>
+    <addvar A="1" B="2" dest="3"/>
+    <multvar A="1" B="2" dest="3" />
+    <conditionblock>
+      <condition>
+        <or>
+          <and>
+            <greaterval A="test" val="12"/>
+            <lessval A="test" val = "34" />
+          </and>
+          <equalsvar A="1" B="2"/>
+        </or>
+      </condition>
+      <then>
+        <addvar A="1" B="2" dest="3"/>
+        <multvar A="1" B="2" dest="3" />
+      </then>
+    </conditionblock>
+   <addvar A="1" B="2" dest="3"/>
+    <multvar A="1" B="2" dest="3" />
+    <addvar A="1" B="2" dest="3"/>
+    <multvar A="1" B="2" dest="3" />
+         
+  </commands>
+</event>
+
+</primusscript>
