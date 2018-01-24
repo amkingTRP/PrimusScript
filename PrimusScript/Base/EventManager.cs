@@ -10,6 +10,7 @@ namespace PrimusJRPG.PrimusScript.Base
     {
         List<Event> allEvents;
         LinkedList<Command> executionStack;
+        string name;
 
         bool[] internalFlags;
         int[] internalVariables;
@@ -20,6 +21,21 @@ namespace PrimusJRPG.PrimusScript.Base
             executionStack = new LinkedList<Command>();
             internalFlags = new bool[64];
             internalVariables = new int[64];
+        }
+
+        public void SetName(string n)
+        {
+            name = n;
+        }
+
+        public string GetName()
+        {
+            return name;
+        }
+
+        public void AddEvent(Event ev)
+        {
+            allEvents.Add(ev);
         }
 
         public void SetInternalFlag(int i, bool on)

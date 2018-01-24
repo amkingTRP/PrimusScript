@@ -29,13 +29,102 @@ namespace PrimusJRPG.PrimusScript.Parser
             errors = true;
         }
 
-        public override EventManager ParseScriptFile(string filename)
+        public virtual EventManager CreateEventManager()
         {
-            throw new NotImplementedException();
+            return new EventManager();
+        }
+        public virtual Event CreateEvent()
+        {
+            return new Event();
         }
 
-        public Command ParseCommands(XmlNode node)
+        public override EventManager ParseScriptFile(string filename)
         {
+            try {
+                xmlDoc.Load(filename);
+            }
+            catch(Exception e)
+            {
+                LogError("Error with loading xml doc " + filename + " : " + e.ToString());
+                return null;
+            }
+
+            EventManager em = CreateEventManager();
+
+            if(!xmlDoc.Name.ToLower().Equals("primusscript"))
+            {
+                LogError("Xml Doc doesn't start with PrimusScript node");
+                return null;
+            }
+
+            em.SetName(xmlDoc.Attributes["name"].Value);
+
+            XmlNode tempNode = xmlDoc.FirstChild;
+            while(tempNode!=null)
+            {
+                switch(tempNode.Name.ToLower())
+                {
+                    case "alias":
+                        int value = GetAttribute(tempNode, "value");
+                        string alias = tempNode.Attributes["alias"].Value;
+                        AddAlias(alias, value);
+                        break;
+                    default:
+                        ExtendedParsing(em, tempNode);
+                        break;
+                }
+                tempNode = tempNode.NextSibling;
+            }
+            return em;
+        }
+
+        public virtual Event ParseEvent(XmlNode node)
+        {
+            if (node == null)
+                return null;
+            Event ev = CreateEvent();
+            int priority = GetAttribute(node, "priority");
+            ev.SetPriority(priority);
+            XmlNode tempNode = node.FirstChild;
+
+            while(tempNode!=null)
+            {
+                switch (tempNode.Name.ToLower())
+                {
+                    case "trigger":
+                        Condition cdn = ParseCondition(tempNode.FirstChild);
+                        ev.SetTrigger(cdn);
+                        break;
+                    case "commands":
+                        Command cmd = ParseCommand(tempNode.FirstChild);
+                        ev.SetFirstCommand(cmd);
+                        break;
+                    default:
+                        ExtendedEventParsing(ev, tempNode);
+                        break;
+                }
+
+                tempNode = tempNode.NextSibling;
+
+            }
+            return ev;
+        }
+        public virtual void ExtendedEventParsing(Event ev, XmlNode node)
+        {
+            if (node == null)
+                return;
+
+        }
+
+        public void AddAlias(string alias, int value)
+        {
+            aliasMap.Add(alias, value);
+        }
+
+        public virtual void ExtendedParsing(EventManager em, XmlNode node)
+        {
+            if (node == null)
+                return;
 
         }
 
@@ -44,7 +133,7 @@ namespace PrimusJRPG.PrimusScript.Parser
             string value = "";
             try
             {
-                value = node.Attributes[attribute].value;
+                value = node.Attributes[attribute].Value;
             }
             catch (Exception)
             {
