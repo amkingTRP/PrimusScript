@@ -23,5 +23,12 @@ namespace PrimusJRPG.PrimusScript.Base
         {
             B = b;
         }
+
+        public override void Print(int indent)
+        {
+            base.Print(indent);
+            A.Print(indent + 1);
+            B.Print(indent + 1);
+        }
     }
 }

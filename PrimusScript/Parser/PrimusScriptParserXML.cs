@@ -11,9 +11,9 @@ namespace PrimusJRPG.PrimusScript.Parser
     class PrimusScriptParserXML : PrimusScriptParser
     {
         Dictionary<string, int> aliasMap;
-        List<string> errorLog;
+        public List<string> errorLog;
         XmlDocument xmlDoc;
-        bool errors;
+        public bool errors;
 
         public PrimusScriptParserXML()
         {
@@ -50,25 +50,32 @@ namespace PrimusJRPG.PrimusScript.Parser
             }
 
             EventManager em = CreateEventManager();
+            XmlNode node = xmlDoc.SelectSingleNode("primusscript");
 
-            if(!xmlDoc.Name.ToLower().Equals("primusscript"))
+            if(node==null)
             {
-                LogError("Xml Doc doesn't start with PrimusScript node");
+                LogError("Xml Doc doesn't start with PrimusScript node: " + xmlDoc.Name.ToLower());
                 return null;
             }
 
-            em.SetName(xmlDoc.Attributes["name"].Value);
+            // put some checking around this
+            em.SetName(node.Attributes["name"].Value);
 
-            XmlNode tempNode = xmlDoc.FirstChild;
+            XmlNode tempNode = node.FirstChild;
             while(tempNode!=null)
             {
                 switch(tempNode.Name.ToLower())
                 {
                     case "alias":
                         int value = GetAttribute(tempNode, "value");
-                        string alias = tempNode.Attributes["alias"].Value;
+                        string alias = tempNode.Attributes["word"].Value;
                         AddAlias(alias, value);
                         break;
+                    case "event":
+                        Event ev = ParseEvent(tempNode);
+                        em.AddEvent(ev);
+                        break;
+
                     default:
                         ExtendedParsing(em, tempNode);
                         break;
@@ -137,7 +144,7 @@ namespace PrimusJRPG.PrimusScript.Parser
             }
             catch (Exception)
             {
-                LogError("Attribute " + attribute + " not found in " + node.ToString());
+                LogError("Attribute " + attribute + " not found in " + node.Name);
                 return 0;
             }
 
@@ -359,13 +366,16 @@ namespace PrimusJRPG.PrimusScript.Parser
                     dest = GetAttribute(node, "dest");
                     cmd = PrimusScriptBuilder.DivVar(A, B, dest);
                     break;
-
+                case "conditionblock":
+                    cmd = ParseConditionBlock(node);
+                    break;
                 default:
                     cmd = ParseExtendedCommand(node);
                     break;
             }
 
-            cmd.SetNext(ParseCommand(node.NextSibling));
+            if(cmd!=null)
+                cmd.SetNext(ParseCommand(node.NextSibling));
 
             return cmd;
         }

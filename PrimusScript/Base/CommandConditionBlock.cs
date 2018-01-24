@@ -52,5 +52,44 @@ namespace PrimusJRPG.PrimusScript.Base
 
             return true;
         }
+
+        public override void Print(int indent)
+        {
+            base.Print(indent);
+            Console.WriteLine();
+            for (int i = 0; i < indent; i++)
+                Console.Write("\t");
+            Console.Write(this.GetType().ToString());
+
+            if (condition != null)
+            {
+                for (int i = 0; i < indent; i++)
+                    Console.Write("\t");
+                Console.WriteLine("-Condition:");
+                condition.Print(indent + 1);
+            }
+            if (_then != null)
+            {
+                for (int i = 0; i < indent; i++)
+                    Console.Write("\t");
+                Console.WriteLine("-Then:");
+                _then.Print(indent + 1);
+            }
+            if (_else != null)
+            {
+                for (int i = 0; i < indent; i++)
+                    Console.Write("\t");
+                Console.WriteLine("-Else:");
+                _else.Print(indent + 1);
+            }
+
+
+            if (next!=null)
+            {
+                next.Print(indent);
+            }
+        }
+
     }
+
 }

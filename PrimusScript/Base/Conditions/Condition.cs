@@ -12,5 +12,13 @@ namespace PrimusJRPG.PrimusScript.Base
         {
             return true;
         }
+
+        public virtual void Print(int indent)
+        {
+            Console.WriteLine();
+            for (int i = 0; i < indent; i++)
+                Console.Write("\t");
+            Console.Write(this.GetType().ToString());
+        }
     }
 }

@@ -111,5 +111,16 @@ namespace PrimusJRPG.PrimusScript.Base
         {
             executionStack.AddLast(cmd);
         }
+
+        public void Print()
+        {
+            Console.WriteLine("Name:" + name);
+            Console.WriteLine("Trigger:");
+            
+            foreach(Event e in allEvents)
+            {
+                e.Print();
+            }
+        }
     }
 }

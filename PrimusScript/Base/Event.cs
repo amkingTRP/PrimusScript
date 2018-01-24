@@ -30,7 +30,7 @@ namespace PrimusJRPG.PrimusScript.Base
         public void Trigger(EventManager caller)
         {
             EventStartCommand esc = new EventStartCommand(this);
-            esc.
+            //esc.
         }
 
         public int GetPriority()
@@ -52,6 +52,16 @@ namespace PrimusJRPG.PrimusScript.Base
         public void SetFirstCommand(Command cmd)
         {
             command = cmd;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine("Priority: " + priority);
+            Console.WriteLine("Trigger: ");
+            trigger.Print(1);
+            Console.WriteLine();
+            Console.WriteLine("Commands: ");
+            GetFirstCommand().Print(1);
         }
     }
 }
