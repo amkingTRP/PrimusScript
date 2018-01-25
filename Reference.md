@@ -66,7 +66,40 @@ val - the value to compare against.
 ```
 Example- Is local variable 1 equals to the numeric value 12?
 ``` xml
- <greaterval A="1" val="12"/>
+ <equalsval A="1" val="12"/>
+```
+### GlobalGreaterVal
+Returns true if the named global variable is greater than the provided value.   
+Operands:
+```
+A   - the number of the variable.
+val - the value to compare against.
+```
+Example- Is global variable 1 greater than the numeric value 12?
+``` xml
+ <globalgreaterval A="1" val="12"/>
+```
+### GlobalLessVal
+Returns true if the named global variable is less than the provided value.   
+Operands:
+```
+A   - the number of the variable.
+val - the value to compare against.
+```
+Example- Is global variable 1 less than the numeric value 12?
+``` xml
+ <globallessval A="1" val="12"/>
+```
+### GlobalEqualsVal
+Returns true if the named global variable is equal to the provided value.   
+Operands:
+```
+A   - the number of the variable.
+val - the value to compare against.
+```
+Example- Is global variable 1 equals to the numeric value 12?
+``` xml
+ <globalequalsval A="1" val="12"/>
 ```
 ### GreaterVar
 Returns true if the named local variable A is greater than the named local variable B.   
