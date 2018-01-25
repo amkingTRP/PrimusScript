@@ -135,4 +135,27 @@ Example- Is local variable 1 equal to local variable 2?
  <equalsvar A="1" B="2"/>
 ```
 
+### LocalFlagSet
+Returns true if the named local flag is true.   
+Operands:
+```
+flag - the number of the flag to check.
+
+```
+Example- Is local flag 1 set?
+``` xml
+ <localflagset flag="1" />
+```
+### GlobalFlagSet
+Returns true if the named global flag is true.   
+Operands:
+```
+flag - the number of the flag to check.
+
+```
+Example- Is global flag 1 set?
+``` xml
+ <globalflagset flag="1" />
+```
+
 
