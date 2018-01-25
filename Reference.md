@@ -199,3 +199,215 @@ Example- Is global flag 1 *not* set?
  <globalflagset flag="1" />
 </not>
 ```
+
+## Basic Commands
+### GetGlobalVar
+Takes the value of a global variable and copies into a local variable   
+Operands:
+```
+src  = number of the global variable to copy from
+dest = number of the local variable to copy into
+```
+   
+Example- Copy global variable 1 into local variable 2
+``` xml
+<getglobalvar src="1" dest="1" />
+```
+### PutGlobalVar
+Takes the value of a local variable and copies into a global variable   
+Operands:
+```
+src  = number of the local variable to copy from
+dest = number of the global variable to copy into
+```
+   
+Example- Copy local variable 1 into global variable 2
+``` xml
+<putglobalvar src="1" dest="1" />
+```
+
+### SetGlobalFlag
+Set a global flag to true   
+Operands:
+```
+flag = number of the global flag to set as true
+
+```
+   
+Example- Set global flag 1 to true;
+``` xml
+<setglobalflag flag="1"  />
+```
+### UnsetGlobalFlag
+Set a global flag to false   
+Operands:
+```
+flag = number of the global flag to set as false
+
+```
+   
+Example- Set global flag 1 to false;
+``` xml
+<unsetglobalflag flag="1"  />
+```
+
+### SetLocalFlag
+Set a local flag to true   
+Operands:
+```
+flag = number of the local flag to set as true
+
+```
+   
+Example- Set local flag 1 to true;
+``` xml
+<setlocalflag flag="1"  />
+```
+### UnsetLocalFlag
+Set a local flag to false   
+Operands:
+```
+flag = number of the local flag to set as false
+
+```
+   
+Example- Set local flag 1 to false;
+``` xml
+<unsetlocalflag flag="1"  />
+```
+
+### SetVar
+Copy a local variable to another local variable   
+Operands:
+```
+src  = number of the local variable to copy from
+dest = number of the local variable to copy to
+```
+   
+Example- Copy local variable 1 to local variable 2.
+``` xml
+<setvar src="1" dest="2" />
+```
+
+### SetVal
+Assign a value to a local variable   
+Operands:
+```
+val  = numeric value to assign to the variable
+dest = number of the local variable 
+```
+   
+Example- Assign value 128 to local variable 2.
+``` xml
+<setval val="128" dest="2" />
+```
+
+### AddVar
+Add two local variables together and store in a named variable   
+Operands:
+```
+A    = number of the local variable
+B    = number of the local variable 
+dest = number of the local variable to store the result in
+```
+   
+Example- Add variables 1 & 2 and store in 3.
+``` xml
+<addvar A="1" B="2" dest="3" />
+```
+### MinusVar
+Subtract two local variables and store in a named variable   
+Operands:
+```
+A    = number of the local variable
+B    = number of the local variable 
+dest = number of the local variable to store the result in
+```
+   
+Example- A - B -> dest.
+``` xml
+<addvar A="1" B="2" dest="3" />
+```
+### MultVar
+Multiply two local variables and store in a named variable   
+Operands:
+```
+A    = number of the local variable
+B    = number of the local variable 
+dest = number of the local variable to store the result in
+```
+   
+Example- A * B -> dest.
+``` xml
+<multvar A="1" B="2" dest="3" />
+```
+### DivVar
+Divide two local variables and store in a named variable   
+Operands:
+```
+A    = number of the local variable
+B    = number of the local variable 
+dest = number of the local variable to store the result in
+```
+   
+Example- A / B -> dest.
+``` xml
+<divvar A="1" B="2" dest="3" />
+```
+
+## Advanced Commands
+### Condition Block
+The condition block has a condition embedded in it.  If the condition passes then it will trigger the commands stored in its "then" block, otherwise it runs the commands in the "else" block.   
+Operands:
+```
+none
+```
+   
+Example- If variables 1 and 2 are equal, then add variables 1 & 2 together and store in 3.  Otherwise multiply variables 1 & 2 and store in 3..
+``` xml
+   <conditionblock>
+      <condition>     
+       <equalsvar A="1" B="2"/>       
+      </condition>
+      <then>
+        <addvar A="1" B="2" dest="3"/>
+      </then>
+      <else>
+        <multvar A="1" B="2" dest="3" />
+      </else>
+    </conditionblock>
+ ```
+### Return
+Ends the currently executing event.  Pops all commands off the execution stack until it pops an EventStart.
+Operands:
+```
+none
+```
+   
+Example- 
+``` xml
+  <return />
+```
+
+### ResumeOnLocalFlagSet
+Breaks out of current Event Manager execution cycle unless the specified local flag is set.
+Operands:
+```
+flag - number of the local flag to check
+```
+   
+Example- 
+``` xml
+  <resumeonlocalflagset flag="1" />
+```
+### ResumeOnGlobalFlagSet
+Breaks out of current Event Manager execution cycle unless the specified global flag is set.
+Operands:
+```
+flag - number of the global flag to check
+```
+   
+Example- 
+``` xml
+  <resumeonglobalflagset flag="1" />
+```
