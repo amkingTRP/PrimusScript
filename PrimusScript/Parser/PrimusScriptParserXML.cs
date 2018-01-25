@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PrimusJRPG.PrimusScript.Base;
+using TinyRedPlanet.PrimusScript.Base;
 using System.Xml;
 
-namespace PrimusJRPG.PrimusScript.Parser
+namespace TinyRedPlanet.PrimusScript.Parser
 {
     class PrimusScriptParserXML : PrimusScriptParser
     {
@@ -223,6 +223,11 @@ namespace PrimusJRPG.PrimusScript.Parser
                     val = GetAttribute(node, "val");
                     cdn = PrimusScriptBuilder.GreaterVal(src, val);                    
                     break;
+                case "globalgreaterval":
+                    src = GetAttribute(node, "A");
+                    val = GetAttribute(node, "val");
+                    cdn = PrimusScriptBuilder.GlobalGreaterVal(src, val);
+                    break;
                 case "greatervar":
                     src = GetAttribute(node, "A");
                     dest = GetAttribute(node, "B");
@@ -232,6 +237,11 @@ namespace PrimusJRPG.PrimusScript.Parser
                     src = GetAttribute(node, "A");
                     val = GetAttribute(node, "val");
                     cdn = PrimusScriptBuilder.LessVal(src, val);
+                    break;
+                case "globallessval":
+                    src = GetAttribute(node, "A");
+                    val = GetAttribute(node, "val");
+                    cdn = PrimusScriptBuilder.GlobalLessVal(src, val);
                     break;
                 case "lessvar":
                     src = GetAttribute(node, "A");
@@ -247,6 +257,11 @@ namespace PrimusJRPG.PrimusScript.Parser
                     src = GetAttribute(node, "A");
                     val = GetAttribute(node, "val");
                     cdn = PrimusScriptBuilder.EqualsVal(src, val);
+                    break;
+                case "globalequalsval":
+                    src = GetAttribute(node, "A");
+                    val = GetAttribute(node, "val");
+                    cdn = PrimusScriptBuilder.GlobalEqualsVal(src, val);
                     break;
                 case "localflagset":
                     src = GetAttribute(node, "flag");
@@ -368,6 +383,17 @@ namespace PrimusJRPG.PrimusScript.Parser
                     break;
                 case "conditionblock":
                     cmd = ParseConditionBlock(node);
+                    break;
+                case "return":
+                    cmd = PrimusScriptBuilder.Return();
+                    break;
+                case "resumeonlocalflagset":
+                    src = GetAttribute(node, "flag");
+                    cmd = PrimusScriptBuilder.ResumeOnFlagSet(src);
+                    break;
+                case "resumeonglobalflagset":
+                    src = GetAttribute(node, "flag");
+                    cmd = PrimusScriptBuilder.ResumeOnGlobalFlagSet(src);
                     break;
                 default:
                     cmd = ParseExtendedCommand(node);

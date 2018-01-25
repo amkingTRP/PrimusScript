@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace TinyRedPlanet.PrimusScript.Base
 {
-    class ConditionFlagSetGlobal : ConditionFlagSetBase
+    class ConditionGlobalEqualsVal : ConditionVarValBase
     {
         public override bool Execute(EventManager caller)
         {
-            return PrimusScriptEnvironment.IsGlobalFlagSet(this.flag);
+            return (PrimusScriptEnvironment.GetGlobalVariable(this.varA) == this.val);
         }
     }
 }

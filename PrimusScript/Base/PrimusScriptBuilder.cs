@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrimusJRPG.PrimusScript.Base
+namespace TinyRedPlanet.PrimusScript.Base
 {
     class PrimusScriptBuilder
     {
@@ -171,6 +171,31 @@ namespace PrimusJRPG.PrimusScript.Base
             return cnd;
         }
 
+        public static ConditionGlobalGreaterVal GlobalGreaterVal(int variable, int value)
+        {
+            ConditionGlobalGreaterVal cnd = new ConditionGlobalGreaterVal();
+            cnd.SetVal(value);
+            cnd.SetVarA(variable);
+
+            return cnd;
+        }
+        public static ConditionGlobalLessVal GlobalLessVal(int variable, int value)
+        {
+            ConditionGlobalLessVal cnd = new ConditionGlobalLessVal();
+            cnd.SetVal(value);
+            cnd.SetVarA(variable);
+
+            return cnd;
+        }
+
+        public static ConditionGlobalEqualsVal GlobalEqualsVal(int variable, int value)
+        {
+            ConditionGlobalEqualsVal cnd = new ConditionGlobalEqualsVal();
+            cnd.SetVal(value);
+            cnd.SetVarA(variable);
+
+            return cnd;
+        }
         public static ConditionEqualsVar EqualsVar(int varA, int varB)
         {
             ConditionEqualsVar cnd = new ConditionEqualsVar();

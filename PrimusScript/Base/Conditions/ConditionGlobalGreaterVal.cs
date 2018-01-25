@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TinyRedPlanet.PrimusScript.Base
 {
-    class ConditionFlagSetGlobal : ConditionFlagSetBase
+    class ConditionGlobalGreaterVal : ConditionVarValBase
     {
         public override bool Execute(EventManager caller)
         {
-            return PrimusScriptEnvironment.IsGlobalFlagSet(this.flag);
+            return (PrimusScriptEnvironment.GetGlobalVariable(this.varA) > this.val);
         }
     }
 }

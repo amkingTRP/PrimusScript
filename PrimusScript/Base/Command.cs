@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrimusJRPG.PrimusScript.Base
+namespace TinyRedPlanet.PrimusScript.Base
 {
     class Command
     {

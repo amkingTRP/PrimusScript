@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PrimusJRPG.PrimusScript.Base
+namespace TinyRedPlanet.PrimusScript.Base
 {
     class Event
     {
@@ -22,15 +22,19 @@ namespace PrimusJRPG.PrimusScript.Base
             trigger = trggr;
         }
 
-        public bool Triggered()
+        public bool Triggered(EventManager caller)
         {
-            return false;
+            if (trigger == null) // if no conditions specified then it would always trigger
+                return true;
+            return (trigger.Execute(caller));
+            //return false;
         }
 
         public void Trigger(EventManager caller)
         {
             EventStartCommand esc = new EventStartCommand(this);
-            //esc.
+            esc.SetNext(command);
+            caller.PushStack(esc);
         }
 
         public int GetPriority()
