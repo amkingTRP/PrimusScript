@@ -158,4 +158,44 @@ Example- Is global flag 1 set?
  <globalflagset flag="1" />
 ```
 
-
+### AND
+Returns true only if both sub-conditions are true.   
+Operands:
+```
+none
+```
+Requires two nested conditions.  AND, OR, and NOT can be nested.   
+Example- Is both global flag 1 set and global flag 2 set?
+``` xml
+<and>
+ <globalflagset flag="1" />
+ <globalflagset flag="2" />
+</and>
+```
+### OR
+Returns true if either sub-condition is true.   
+Operands:
+```
+none
+```
+Requires two nested conditions.  AND, OR, and NOT can be nested.   
+Example- Is either global flag 1 set or global flag 2 set?
+``` xml
+<or>
+ <globalflagset flag="1" />
+ <globalflagset flag="2" />
+</or>
+```
+### NOT
+Inverts the result of the single nested condition.    
+Operands:
+```
+none
+```
+Requires one nested condition.  AND, OR, and NOT can be nested.   
+Example- Is global flag 1 *not* set?
+``` xml
+<not>
+ <globalflagset flag="1" />
+</not>
+```
